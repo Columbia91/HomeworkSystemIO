@@ -57,17 +57,16 @@ namespace HomeworkSystemIO
                     sr = new StreamReader(path);
                     string str = sr.ReadToEnd().Trim();
                     string[] numbers = str.Split(new char[] { ' ' });
-                    Console.WriteLine(int.Parse(numbers[numbers.Length - 2]));
                     sr.Close();
                     check = true;
                     sw = new StreamWriter(path, true);
-                    int[] fibonacciNumbers = { int.Parse(numbers[numbers.Length - 2]), int.Parse(numbers[numbers.Length - 1]) };
+                    int[] fiboNumbs = { int.Parse(numbers[numbers.Length - 2]), int.Parse(numbers[numbers.Length - 1]) };
                     for (int i = 0; i < numbers.Length; i++)
                     {
-                        Array.Resize(ref fibonacciNumbers, fibonacciNumbers.Length + 1);
-                        int index = fibonacciNumbers.Length;
-                        fibonacciNumbers[index - 1] = fibonacciNumbers[index - 2] + fibonacciNumbers[index - 3];
-                        sw.Write($"{fibonacciNumbers[i]} ");
+                        Array.Resize(ref fiboNumbs, fiboNumbs.Length + 1);
+                        int index = fiboNumbs.Length;
+                        fiboNumbs[index - 1] = fiboNumbs[index - 2] + fiboNumbs[index - 3];
+                        sw.Write($"{fiboNumbs[i]} ");
                     }
                     sw.Close();
                 }
@@ -76,12 +75,15 @@ namespace HomeworkSystemIO
                     var myFile = File.Create(path);
                     myFile.Close();
                     sw = new StreamWriter(path);
-                    int[] fibonacciNumbers = { 0, 1 };
-                    for (int i = fibonacciNumbers.Length; i < rnd.Next(rangeA, rangeB); i++)
+                    int[] fiboNumbs = { 0, 1 };
+                    for (int i = 0; i < rnd.Next(rangeA, rangeB); i++)
                     {
-                        Array.Resize(ref fibonacciNumbers, fibonacciNumbers.Length + 1);
-                        fibonacciNumbers[i] = fibonacciNumbers[i - 2] + fibonacciNumbers[i - 1];
-                        sw.Write($"{fibonacciNumbers[i]} ");
+                        if (i == fiboNumbs.Length)
+                        {
+                            Array.Resize(ref fiboNumbs, fiboNumbs.Length + 1);
+                            fiboNumbs[i] = fiboNumbs[i - 2] + fiboNumbs[i - 1];
+                        }
+                        sw.Write($"{fiboNumbs[i]} ");
                     }
                     sw.Close();
                 }
